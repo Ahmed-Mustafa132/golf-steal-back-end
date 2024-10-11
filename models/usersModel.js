@@ -2,7 +2,7 @@ const mongoose = module.require("mongoose");
 const bcrypt = module.require("bcrypt");
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
     trum: true,
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     trum: true,
     validate: {
       validator: function (val) {
-        return /^[a-zA-Z]{3,20}@(gmail|yahoo)(.com)$/.test(val);
+        return /^[a-zA-Z0-9]{3,50}@(gmail|yahoo)(.com)$/.test(val);
       },
       message: () => `invaild mail or password`,
     },
@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: "Admin",
-    default: "admin",
+    default: "Admin",
   },
   image: {
     type: String,

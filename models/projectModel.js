@@ -4,7 +4,10 @@ const projectSchema = new mongoose.Schema({
   name: String,
   description: String,
   type: String,
-  Image: String,
+    Image: {
+    data: Buffer,
+    contentType: String
+  }
 });
 
 const Project = mongoose.model("Project", projectSchema);

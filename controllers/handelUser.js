@@ -25,52 +25,19 @@ const getByid = async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 };
-const updateOne = async (req, res) => {
+
+const createone = async (req, res) => {
   try {
-    let { id } = req.params;
-    let newupdate = req.body;
-    let updatedtuser = await usermodel.findByIdAndUpdate(id, newupdate, {
-      new: true,
-    });
-    res.json({ message: "updated", data: updatedtuser });
-  } catch (e) {
-    res.json({ message: "not updated", error: e.message });
+    let newuser = req.body;
+    console.log(newuser);
+    let inserteduser = await usermodel.create(newuser);
+    res.status(201).json({ message: "created", data: inserteduser });
+  } catch (err) {
+    res.status(400).json({ message: "can not be created", error: err.message });
   }
 };
-const createone = (req, res) => {
-  let newuser = req.body;
-  console.log(newuser);
-  let inserteduser = usermodel
-    .create(newuser)
-    .then(() => {
-      res.json({ message: "created", data: newuser });
-    })
-    .catch((err) => {
-      res.json({ message: "can not be created", error: err.message });
-    });
-};
-const deleteOne = async (req, res) => {
-  try {
-    let { id } = req.params;
 
-    let user = usermodel.findById(id);
-    const count = await usermodel.countDocuments({});
 
-    await user.deleteOne();
-
-    res.json({ message: "deleted", totalDocsDeleted: count });
-  } catch (e) {
-    res.json({ message: e.message });
-  }
-};
-const deleteall = async (req, res) => {
-  try {
-    await usermodel.deleteMany({});
-    res.json({ message: "all users are deleted" });
-  } catch (e) {
-    res.json({ message: e.message });
-  }
-};
 const login = async (req, res) => {
   let { email, password } = req.body;
   console.log(email, password);
@@ -92,27 +59,10 @@ const login = async (req, res) => {
   );
   return res.json({ message: "success", token: token });
 };
-const uploadImage = async (req, res) => {
-  try {
-    const user = await usermodel.findById(req.params.id);
-    if (!user) return res.status(404).send("User not found");
 
-    user.image = req.file.path;
-    await user.save();
-
-    res.send("Image uploaded and updated for user");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send(err.message);
-  }
-};
 module.exports = {
   getall,
   getByid,
-  updateOne,
   createone,
-  deleteOne,
-  deleteall,
   login,
-  uploadImage,
 };

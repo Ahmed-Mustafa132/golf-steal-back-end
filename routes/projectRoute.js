@@ -1,13 +1,27 @@
-const upload = require("../Middlewares/uploadConfig");
 const express = module.require("express");
 const router = express.Router();
-const app = express();
+const multer = require("multer");
+const { isAdmin } = require('../middleware/authMiddleware');
+
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+  }
+});
+
 const { getAllProjectes, getById, saveProject } = module.require(
   "../controllers/handelProject"
 );
-const { auth, restrict } = module.require("../Middlewares/auth");
-app.use(express.json());
+
 router.get("/", getAllProjectes);
 router.get("/:id", getById);
-router.post("/createproject", auth, saveProject);
+router.post("/createproject", isAdmin, upload.single("image"), saveProject);
+
 module.exports = router;

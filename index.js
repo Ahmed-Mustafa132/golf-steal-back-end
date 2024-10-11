@@ -3,6 +3,9 @@ const mongoose = module.require("mongoose");
 const dbConn = module.require("./controllers/dbConn");
 const cors = require("cors");
 const app = express();
+require('dotenv').config();
+process.env.secret = process.env.SECRET;
+
 
 app.use(cors());
 app.use(express.json());
