@@ -1,8 +1,7 @@
 # Golf Steal Back end 
 
-# decription:
-
-React FrontEnd for the Golf Steal Corporation
+# decription 
+Express Back End for the Golf Steal Corporation
 
 # owner:
 
