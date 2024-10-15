@@ -19,9 +19,9 @@ dbConn();
 app.get("/",(req,res)=>{
   res.send("hi")
 })
-mongoose.connection.once("open", () => {
-  console.log("Connected to db");
+// mongoose.connection.once("open", () => {
+  // console.log("Connected to db");
   app.listen(process.env.PORT || 3000, () => {
     console.log("Server is running on port 3000");
   });
-});
+// });
