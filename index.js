@@ -16,6 +16,9 @@ app.use("/users", userRoute);
 app.use("/projects", projectRoute);
 dbConn();
 
+app.get("/",(req,res)=>{
+  res.send("hi")
+})
 mongoose.connection.once("open", () => {
   console.log("Connected to db");
   app.listen(process.env.PORT || 3000, () => {
