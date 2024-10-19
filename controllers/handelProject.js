@@ -3,7 +3,7 @@ const Project = require("../models/projectModel");
 
 // get all projectes
 const getAllProjectes = async (req, res) => {
-  const limit = parseInt(req.query.limit) || 3;
+  const limit = parseInt(req.query.limit) || 0;
   const page = parseInt(req.query.page) || 0;
    
   try {
