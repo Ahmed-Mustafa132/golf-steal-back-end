@@ -1,7 +1,7 @@
 {
-  "name": "ums-university-management-system",
+  "name": "gulf-steal",
   "version": "1.0.0",
-  "description": "A University management system to allow students to enroll in diffrent courses",
+  "description": "golf steal website",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

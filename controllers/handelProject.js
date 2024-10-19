@@ -3,8 +3,11 @@ const Project = require("../models/projectModel");
 
 // get all projectes
 const getAllProjectes = async (req, res) => {
+  const limit = parseInt(req.query.limit) || 3;
+  const page = parseInt(req.query.page) || 0;
+   
   try {
-    const projects = await Project.find({});
+    const projects = await Project.find({}).skip(page).limit(limit);
     const projectsWithEncodedImages = projects.map(project => {
       const projectObject = project.toObject();
       if (project.Image && project.Image.data) {

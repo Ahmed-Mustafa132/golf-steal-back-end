@@ -10,10 +10,12 @@ process.env.secret = process.env.SECRET;
 app.use(cors());
 app.use(express.json());
 
-let userRoute = module.require("./routes/userRoute.js");
-let projectRoute = module.require("./routes/projectRoute.js");
+const userRoute = module.require("./routes/userRoute.js");
+const projectRoute = module.require("./routes/projectRoute.js");
+const galleryRoute = module.require("./routes/GalleryRoute.js");
 app.use("/users", userRoute);
 app.use("/projects", projectRoute);
+app.use ("/gallery", galleryRoute);
 dbConn();
 
 
