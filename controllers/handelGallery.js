@@ -2,7 +2,7 @@ const express = require("express");
 const gallery = require('../models/galleryModel');
 
 const getAllGallery = async (req, res) => {
-    const limit = parseInt(req.query.limit) || 3;
+    const limit = parseInt(req.query.limit) || 7;
     const page = parseInt(req.query.page) || 0;
    try {
        const galleries = await gallery.find({}).skip(page).limit(limit);
