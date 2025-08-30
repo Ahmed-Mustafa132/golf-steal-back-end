@@ -4,8 +4,8 @@ const projectSchema = new mongoose.Schema({
   name: String,
   description: String,
   type: String,
-    Image: {
-    data: Buffer,
+  Image: {
+    data: String, 
     contentType: String
   }
 });

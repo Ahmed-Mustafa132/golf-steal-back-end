@@ -1,11 +1,8 @@
 const express = module.require("express");
 const mongoose = module.require("mongoose");
-const dbConn = module.require("./controllers/dbConn");
 const cors = require("cors");
 const app = express();
-require('dotenv').config();
-process.env.secret = process.env.SECRET;
-
+require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
@@ -15,9 +12,17 @@ const projectRoute = module.require("./routes/projectRoute.js");
 const galleryRoute = module.require("./routes/GalleryRoute.js");
 app.use("/users", userRoute);
 app.use("/projects", projectRoute);
-app.use ("/gallery", galleryRoute);
-dbConn();
+app.use("/gallery", galleryRoute);
 
+const dbConn = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+  }
+};
+dbConn();
 
 mongoose.connection.once("open", () => {
   console.log("Connected to db");
